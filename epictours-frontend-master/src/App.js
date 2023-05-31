@@ -20,8 +20,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
 
-  useEffect(() => {
-    fetch(``)
+ useEffect(() => {
+    fetch(`https://epic-hcpr.onrender.com`)
       .then((response) => response.json())
       .then((data) => {
         setDestinations(data);

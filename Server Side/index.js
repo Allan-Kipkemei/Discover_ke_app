@@ -1,3 +1,4 @@
+//import the necessary libraries and dependancies
 const express = require("express");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
@@ -8,6 +9,7 @@ const cors = require('cors')
 const User = require("./models/User");
 const Contact = require("./models/Contact")
 
+//initialize express app
 const app = express();
 app.use(cors());
 
@@ -16,9 +18,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect("mongodb+srv://allankiplagatkipkemei:dfbPhdZZEDwOTJ5k@cluster0.3xcjnaw.mongodb.net/", {
-
-
-    useNewUrlParser: true,
+ useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
     console.log("Connected to MongoDB");
@@ -30,13 +30,12 @@ app.get("/", (req, res) => {
     res.json({message: "Hello, world"});
 });
 
-
 //contact us 
 app.post('/contact',(req, res) => {
     const {username, email, message} = req.body;
     const newContact = new Contact ({username, email, message});
     newContact.save().then(() => {
-        res.status(200).json({message: 'success saved the contact to databsee'});
+        res.status(200).json({message: 'Message sent successfully'});
     }).catch(err => {
         console.error(err); 
     res.status(500).json({message: err.message}); })
@@ -48,10 +47,10 @@ app.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); // hashing the password
     const newUser = new User({username, email, password: hashedPassword});
     newUser.save().then(() => {
-        res.status(200).json({message: "Successfully saved user to the database"});
+        res.status(200).json({message: "Sign up successful"});
     }).catch((err) => {
         console.error(err);
-        res.status(500).json({error: "Failed to save user"});
+        res.status(500).json({error: "Failed to sign up Check for potential errors"});
     });
 });
 
@@ -59,7 +58,7 @@ app.get('/login', (req, res) => {
     res.json({message: "logged in"})
 })
 
-
+//login route
 app.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
@@ -90,8 +89,8 @@ app.post('/login', async (req, res) => {
 // generating random key using crypto
 const secretKey = crypto.randomBytes(64).toString('hex');
 
-
 // Start the server
-app.listen(4000, () => {
-    console.log("Listening on port 3000");
+const port = 4000;
+app.listen(port, () => {
+    console.log(`app is listening on port ${port}`);
 });

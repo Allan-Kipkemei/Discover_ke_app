@@ -17,16 +17,16 @@ const Booking = () => {
   const { id } = useParams();
 
 
-  // useEffect(() => {
-  //   console.log(value)
-  //   fetch(`https://epic-hcpr.onrender.com/${id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setDestinations(data);
-  //       setPrice(data.price);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, [id,value]);
+   useEffect(() => {
+     console.log(value)
+     fetch(`https://epic-hcpr.onrender.com/${id}`)
+       .then((response) => response.json())
+       .then((data) => {
+         setDestinations(data);
+         setPrice(data.price);
+       })
+       .catch((error) => console.error(error));
+   }, [id,value]);
 
 
 

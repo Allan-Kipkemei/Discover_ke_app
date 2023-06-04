@@ -24,7 +24,7 @@ function LogIn() {
 
 
   return (
-    <div className="" style={{backgroundImage: `url('./bg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+    <div className="" style={{backgroundImage: `url('./subg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
       {/* <h1 className="text-center pt-5 text-2xl font-bold text-black">Epic Tours</h1> */}
       <div className='text-center'>
         <Link to="/">

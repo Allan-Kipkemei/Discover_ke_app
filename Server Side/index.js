@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors')
 const User = require("./models/User");
 const Contact = require("./models/Contact")
+const destinations = require('./destinations')
 
 //initialize express app
 const app = express();
@@ -17,7 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb+srv://allankiplagatkipkemei:dfbPhdZZEDwOTJ5k@cluster0.3xcjnaw.mongodb.net/", {
+mongoose.connect("mongodb+srv://allankiplagat:92839283F4y@cluster0.9nleubm.mongodb.net/", {
+
  useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -88,6 +90,15 @@ app.post('/login', async (req, res) => {
 
 // generating random key using crypto
 const secretKey = crypto.randomBytes(64).toString('hex');
+
+
+
+//destination route 
+
+app.use('/api', (req, res,) => {
+res.json(destinations)
+console.log(destinations)
+})
 
 // Start the server
 const port = 4000;

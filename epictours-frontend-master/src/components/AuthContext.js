@@ -11,50 +11,55 @@ export default function AuthProvider({children}) {
 
     const [change, setOnChange] = useState(false);
 
-    // login
-    const login = (email, password) => {
-        fetch("https://epic-hcpr.onrender.com/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {email, password}
-            )
-        }).then((res) => res.json()).then((response) => { // console.log(email);
+  
+  
+//login
+const login = (email, password) => {
+    fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    })
+        .then((res) => res.json())
+        .then((response) => {
+            console.log(email);
             console.log(response);
 
             setOnChange(!change);
 
-            if (response.error) { // console.log(response.error)
-                Swal.fire({icon: "error", title: "Oops...", text: response.error, footer: '<a href="">Why do I have this issue?</a>'});
-            } else if (response.user) {
-                setUser(response);
-                sessionStorage.setItem("jwtToken", response.jwt);
+            if (response.user) {
+                setUser(response.user);
+               
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "LoggedIn successfully!",
+                    title: "Logged in successfully!",
                     showConfirmButton: false,
                     timer: 1500
                 });
                 navigate("/");
             } else {
-                console.log("Not logged in, something went wrong");
+                console.error("Not logged in, something went wrong");
             }
+        })
+        .catch((error) => {
+            console.error("An error occurred during login:", error);
         });
-    };
+};
 
-    // Register
+
+//signup
     const register = (name, email, password) => {
-        fetch("https://epic-hcpr.onrender.com/signup", {
+        fetch("http://localhost:4000/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
                 {name, email, password}
-            )
+            )   
         }).then((res) => res.json()).then((response) => {
             setOnChange(!change);
             if (response.error) { // console.log(response.error)
@@ -95,7 +100,7 @@ export default function AuthProvider({children}) {
 
     // check if user is logged in
     useEffect(() => {
-        fetch("https://epic-hcpr.onrender.com/loggedin", {
+        fetch("", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

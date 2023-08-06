@@ -93,7 +93,6 @@ const secretKey = crypto.randomBytes(64).toString('hex');
 
 
 
-//destination route 
 
 app.use('/api', (req, res,) => {
 res.json(destinations)
